@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Serie de Manifestación</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Manifestación">
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ===================== SCREEN: HOY ===================== -->
+  <section class="screen" id="screen-hoy" data-screen>
+    <div class="hero">
+      <img src="assets/cover.jpg" alt="" class="hero-img">
+      <div class="hero-overlay">
+        <div class="streak" id="streak-badge">
+          <span class="streak-num" id="streak-num">0</span>
+          <span class="streak-label">días seguidos</span>
+        </div>
+        <div class="today-date" id="today-date"></div>
+      </div>
+    </div>
+
+    <h1 class="brand">Serie de<br>Manifestación</h1>
+
+    <div class="focus-pill" id="focus-pill">
+      <span class="focus-name" id="focus-name">Abundancia</span>
+    </div>
+
+    <p class="focus-sub" id="focus-sub">El enfoque de hoy</p>
+
+    <div class="exercise-list" id="exercise-list"><!-- injected --></div>
+
+    <button class="btn-primary" id="btn-empezar">Empezar rutina de hoy</button>
+
+    <div class="completed-note" id="completed-note" hidden>Ya completaste la rutina de hoy. ✓</div>
+  </section>
+
+  <!-- ===================== SCREEN: PROGRESO ===================== -->
+  <section class="screen" id="screen-progreso" data-screen hidden>
+    <header class="top top--simple">
+      <h2 class="screen-title">Progreso</h2>
+    </header>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-streak">0</div>
+        <div class="stat-label">racha actual</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">sesiones totales</div>
+      </div>
+    </div>
+
+    <h3 class="section-label">Este mes</h3>
+    <div class="calendar" id="calendar"><!-- injected --></div>
+
+    <h3 class="section-label">Diario de gratitud</h3>
+    <div class="journal-list" id="journal-list"><!-- injected --></div>
+  </section>
+
+  <!-- ===================== SCREEN: BIBLIOTECA ===================== -->
+  <section class="screen" id="screen-biblioteca" data-screen hidden>
+    <header class="top top--simple">
+      <h2 class="screen-title">Biblioteca</h2>
+    </header>
+
+    <h3 class="section-label">Afirmaciones</h3>
+    <div class="lib-list" id="lib-affirmations"><!-- injected --></div>
+
+    <h3 class="section-label">Las teorías detrás de la práctica</h3>
+    <div class="lib-list" id="lib-theory"><!-- injected --></div>
+  </section>
+
+  <!-- ===================== SCREEN: AJUSTES ===================== -->
+  <section class="screen" id="screen-ajustes" data-screen hidden>
+    <header class="top top--simple">
+      <h2 class="screen-title">Ajustes</h2>
+    </header>
+
+    <div class="setting-row">
+      <label for="toggle-voice">Voz en la visualización y afirmación</label>
+      <input type="checkbox" id="toggle-voice" checked>
+    </div>
+
+    <div class="setting-row setting-row--stack">
+      <label for="range-rate">Velocidad de la voz</label>
+      <input type="range" id="range-rate" min="0.7" max="1.1" step="0.05" value="0.85">
+    </div>
+
+    <button class="btn-secondary" id="btn-reset">Reiniciar todos los datos</button>
+    <p class="fineprint">Todo se guarda solo en este dispositivo. Nada se sube a internet.</p>
+  </section>
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="tabbar" id="tabbar">
+    <button class="tab active" data-target="hoy">
+      <span class="tab-dot"></span>Hoy
+    </button>
+    <button class="tab" data-target="progreso">
+      <span class="tab-dot"></span>Progreso
+    </button>
+    <button class="tab" data-target="biblioteca">
+      <span class="tab-dot"></span>Biblioteca
+    </button>
+    <button class="tab" data-target="ajustes">
+      <span class="tab-dot"></span>Ajustes
+    </button>
+  </nav>
+
+  <!-- ===================== EXERCISE OVERLAY ===================== -->
+  <div class="overlay" id="overlay" hidden>
+    <div class="overlay-inner" id="overlay-inner">
+      <button class="overlay-close" id="overlay-close" aria-label="Cerrar">✕</button>
+      <div class="overlay-progress" id="overlay-progress"></div>
+      <div class="overlay-content" id="overlay-content"><!-- injected per step --></div>
+      <button class="btn-primary btn-overlay" id="overlay-next">Siguiente</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
