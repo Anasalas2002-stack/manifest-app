@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Manifestación">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#eaf6ff">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
@@ -16,18 +16,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-  /* El atributo hidden debe ocultar el overlay hasta iniciar la rutina. */
+  /* Paleta serena de azules y solución para la portada sin imagen rota. */
+  :root {
+    --bg: #f7fbff;
+    --ink: #17324d;
+    --ink-soft: #60788e;
+    --berry: #5b9fc4;
+    --maroon: #39799f;
+    --cerulean: #a9d4e8;
+    --yellow: #d9edf7;
+    --sand: #c4dce9;
+    --line: #dcebf3;
+    --line-strong: #bfd8e6;
+    --surface: #edf7fc;
+    --berry-08: #5b9fc414;
+    --maroon-08: #39799f14;
+    --cerulean-25: #a9d4e840;
+    --yellow-40: #d9edf766;
+    --sand-40: #c4dce966;
+  }
   .overlay[hidden] { display: none !important; }
+  .hero-img {
+    background: linear-gradient(145deg, #b8e0f1 0%, #8fc4df 48%, #5d9fc2 100%);
+  }
+  .focus-pill { background: #5b9fc4 !important; }
+  .focus-name { color: #ffffff !important; }
+  .btn-primary { background: #17324d; }
+  .tab.active .tab-dot { background: #5b9fc4; }
 </style>
 </head>
 <body>
 
 <div id="app">
-
   <!-- ===================== SCREEN: HOY ===================== -->
   <section class="screen" id="screen-hoy" data-screen>
     <div class="hero">
-      <img src="assets/cover.jpg" alt="" class="hero-img">
+      <div class="hero-img" role="img" aria-label="Fondo azul sereno"></div>
       <div class="hero-overlay">
         <div class="streak" id="streak-badge">
           <span class="streak-num" id="streak-num">0</span>
@@ -38,91 +62,50 @@
     </div>
 
     <h1 class="brand">Serie de<br>Manifestación</h1>
-
-    <div class="focus-pill" id="focus-pill">
-      <span class="focus-name" id="focus-name">Abundancia</span>
-    </div>
-
+    <div class="focus-pill" id="focus-pill"><span class="focus-name" id="focus-name">Abundancia</span></div>
     <p class="focus-sub" id="focus-sub">El enfoque de hoy</p>
-
     <div class="exercise-list" id="exercise-list"><!-- injected --></div>
-
     <button class="btn-primary" id="btn-empezar">Empezar rutina de hoy</button>
-
     <div class="completed-note" id="completed-note" hidden>Ya completaste la rutina de hoy. ✓</div>
   </section>
 
   <!-- ===================== SCREEN: PROGRESO ===================== -->
   <section class="screen" id="screen-progreso" data-screen hidden>
-    <header class="top top--simple">
-      <h2 class="screen-title">Progreso</h2>
-    </header>
-
+    <header class="top top--simple"><h2 class="screen-title">Progreso</h2></header>
     <div class="stat-row">
-      <div class="stat-card">
-        <div class="stat-num" id="stat-streak">0</div>
-        <div class="stat-label">racha actual</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" id="stat-total">0</div>
-        <div class="stat-label">sesiones totales</div>
-      </div>
+      <div class="stat-card"><div class="stat-num" id="stat-streak">0</div><div class="stat-label">racha actual</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-total">0</div><div class="stat-label">sesiones totales</div></div>
     </div>
-
     <h3 class="section-label">Este mes</h3>
     <div class="calendar" id="calendar"><!-- injected --></div>
-
     <h3 class="section-label">Diario de gratitud</h3>
     <div class="journal-list" id="journal-list"><!-- injected --></div>
   </section>
 
   <!-- ===================== SCREEN: BIBLIOTECA ===================== -->
   <section class="screen" id="screen-biblioteca" data-screen hidden>
-    <header class="top top--simple">
-      <h2 class="screen-title">Biblioteca</h2>
-    </header>
-
+    <header class="top top--simple"><h2 class="screen-title">Biblioteca</h2></header>
     <h3 class="section-label">Afirmaciones</h3>
     <div class="lib-list" id="lib-affirmations"><!-- injected --></div>
-
     <h3 class="section-label">Las teorías detrás de la práctica</h3>
     <div class="lib-list" id="lib-theory"><!-- injected --></div>
   </section>
 
   <!-- ===================== SCREEN: AJUSTES ===================== -->
   <section class="screen" id="screen-ajustes" data-screen hidden>
-    <header class="top top--simple">
-      <h2 class="screen-title">Ajustes</h2>
-    </header>
-
-    <div class="setting-row">
-      <label for="toggle-voice">Voz en la visualización y afirmación</label>
-      <input type="checkbox" id="toggle-voice" checked>
-    </div>
-
-    <div class="setting-row setting-row--stack">
-      <label for="range-rate">Velocidad de la voz</label>
-      <input type="range" id="range-rate" min="0.7" max="1.1" step="0.05" value="0.85">
-    </div>
-
+    <header class="top top--simple"><h2 class="screen-title">Ajustes</h2></header>
+    <div class="setting-row"><label for="toggle-voice">Voz en la visualización y afirmación</label><input type="checkbox" id="toggle-voice" checked></div>
+    <div class="setting-row setting-row--stack"><label for="range-rate">Velocidad de la voz</label><input type="range" id="range-rate" min="0.7" max="1.1" step="0.05" value="0.85"></div>
     <button class="btn-secondary" id="btn-reset">Reiniciar todos los datos</button>
     <p class="fineprint">Todo se guarda solo en este dispositivo. Nada se sube a internet.</p>
   </section>
 
   <!-- ===================== NAV ===================== -->
   <nav class="tabbar" id="tabbar">
-    <button class="tab active" data-target="hoy">
-      <span class="tab-dot"></span>Hoy
-    </button>
-    <button class="tab" data-target="progreso">
-      <span class="tab-dot"></span>Progreso
-    </button>
-    <button class="tab" data-target="biblioteca">
-      <span class="tab-dot"></span>Biblioteca
-    </button>
-    <button class="tab" data-target="ajustes">
-      <span class="tab-dot"></span>Ajustes
-    </button>
+    <button class="tab active" data-target="hoy"><span class="tab-dot"></span>Hoy</button>
+    <button class="tab" data-target="progreso"><span class="tab-dot"></span>Progreso</button>
+    <button class="tab" data-target="biblioteca"><span class="tab-dot"></span>Biblioteca</button>
+    <button class="tab" data-target="ajustes"><span class="tab-dot"></span>Ajustes</button>
   </nav>
 
   <!-- ===================== EXERCISE OVERLAY ===================== -->
@@ -134,9 +117,7 @@
       <button class="btn-primary btn-overlay" id="overlay-next">Siguiente</button>
     </div>
   </div>
-
 </div>
-
 <script src="app.js"></script>
 </body>
 </html>
