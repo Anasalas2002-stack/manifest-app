@@ -8,9 +8,18 @@
 const DAYS = {
   1: { // lunes
     area: 'abundancia',
+    slug: 'abundancia',
     label: 'Abundancia',
     color: '#A32857',
     textOn: '#fff',
+    metas: [
+      'Sentirte rica y en paz',
+      'Poder gastar en lo que quieras, sin culpa',
+      'Ser generosa con las personas que quieres',
+      'Ver tu dinero crecer y crecer, con tranquilidad',
+      'Recibir $60 millones para invertir en Amaná',
+      'Ganar entre $10 y $20 millones de salario',
+    ],
     affirmation: 'Soy rica y estoy en paz. Mi dinero crece constantemente y gasto con libertad y generosidad, sabiendo que siempre hay más viniendo hacia mí.',
     visualization: `Es una mañana cualquiera, pero algo en ti se siente distinto: liviana, en paz. Abres tu cuenta y ves el saldo — los sesenta millones ya están ahí, invertidos en Amaná, trabajando para ti. No sientes ansiedad ni urgencia, solo una calma profunda, como si siempre hubiera sido así. Respira ese sentimiento.
 
@@ -24,9 +33,18 @@ Quédate un momento en esa sensación: rica, tranquila, generosa. Así es como s
   },
   2: { // martes
     area: 'propósito',
+    slug: 'proposito',
     label: 'Propósito',
     color: '#840016',
     textOn: '#fff',
+    metas: [
+      'Que Amaná crezca e impacte a muchas personas',
+      'Ser reconocida por tu trabajo',
+      'Conectar con personas que comparten tu visión',
+      'Aportar a la sociedad y sentirte plena',
+      'Trabajar con pasión, pero desde la calma',
+      'Lograr un impacto social real',
+    ],
     affirmation: 'Amaná crece e impacta vidas. Soy reconocida por mi trabajo, trabajo con pasión y con calma, y las personas correctas para mi visión ya me están encontrando.',
     visualization: `Estás en un escenario, o quizás en una entrevista, hablando de Amaná. No sientes nervios, sientes orgullo tranquilo. Las palabras salen con facilidad, porque hablas de algo que ya vive dentro de ti, no de un sueño lejano.
 
@@ -42,9 +60,18 @@ Quédate ahí: reconocida, en paz, con propósito.`
   },
   3: { // miércoles
     area: 'relaciones',
+    slug: 'relaciones',
     label: 'Relaciones',
     color: '#9BB7D4',
     textOn: '#2B1420',
+    metas: [
+      'Sentir que vales y que puedes ser amada tal como eres',
+      'Volver a enamorarte',
+      'Una relación divertida y tranquila',
+      'Un hombre honesto, divertido, obsesionado contigo',
+      'Admirarse mutuamente',
+      'Poner límites y hacerte tratar como una reina',
+    ],
     affirmation: 'Merezco amor tal como soy. Soy una reina, pongo límites con facilidad, y un hombre honesto y divertido me admira tanto como yo a él.',
     visualization: `Estás en una cena, o quizás caminando de la mano de alguien, riéndote de algo tonto que él dijo. Es honesto, lo notas en cómo te mira, sin juegos, sin dobles intenciones. Es divertido, y contigo se relaja de una forma que pocas veces se permite con otras personas.
 
@@ -58,9 +85,15 @@ Te ves a ti misma como una reina, no por arrogancia, sino porque así te tratas 
   },
   4: { // jueves
     area: 'salud',
+    slug: 'salud',
     label: 'Salud',
     color: '#F4ECC2',
     textOn: '#2B1420',
+    metas: [
+      'Sentirte segura con tu cuerpo',
+      'Sentir belleza, fuerza y salud',
+      'Tener mucha energía para disfrutar la vida',
+    ],
     affirmation: 'Mi cuerpo es fuerte, hermoso y sano. Tengo la energía para disfrutar cada parte de mi vida.',
     visualization: `Sientes tu cuerpo moverse con facilidad, quizás caminando, bailando, estirándote al despertar. No hay una voz crítica revisando cada parte de ti. Solo hay una sensación de fuerza, de estar cómoda en tu propia piel.
 
@@ -72,9 +105,15 @@ Quédate en esa sensación de vitalidad, de estar plenamente en tu cuerpo, disfr
   },
   5: { // viernes
     area: 'creencias',
+    slug: 'creencias',
     label: 'Creencias',
     color: '#D8CCBB',
     textOn: '#2B1420',
+    metas: [
+      'Soltar la idea de que todo requiere sobre-esfuerzo',
+      'Saber que puedes ser amada por un gran hombre',
+      'Llevar tus proyectos desde la calma, no desde el estrés',
+    ],
     affirmation: 'No necesito sobre-esforzarme para recibir lo que quiero. Puedo construir mis proyectos y ser amada por un gran hombre, todo desde la calma.',
     visualization: `Nota, por un momento, esa vieja idea de que todo tiene que costarte un esfuerzo enorme. Ahora, con cada exhalación, suéltala un poco más.
 
@@ -123,6 +162,15 @@ const EXERCISES = [
   { type:'gratitude', title:'Cierre de gratitud', meta:'1 min' },
 ];
 
+const VIDEOS = [
+  { id:'ffNWoefuwPM', title:'Neville Goddard — Feeling Is the Secret', sub:'La lectura clásica sobre vivir desde el sentimiento del deseo cumplido.' },
+  { id:'NuHKcbuUZz8', title:'Abraham-Hicks — Sube tu escala emocional', sub:'Cómo moverte, peldaño a peldaño, hacia una vibración más alta.' },
+  { id:'QDX_mQy5mXA', title:'Meditación guiada inspirada en Joe Dispenza', sub:'Relajación profunda de 10 minutos para instalar tu nueva versión.' },
+];
+const GUIDED_MEDITATION_ID = 'QDX_mQy5mXA'; // usado dentro del paso de visualización
+
+const EXERCISE_ICONS = { breath:'〰️', scale:'🎚️', visualize:'✨', affirm:'💬', gratitude:'🙏' };
+
 /* ---------------- ESTADO ---------------- */
 const STORE_KEY = 'manifestacion_state_v1';
 
@@ -164,6 +212,7 @@ document.querySelectorAll('.tab').forEach(tab=>{
     tab.classList.add('active');
     const target = tab.dataset.target;
     screens.forEach(s=> s.hidden = (s.id !== 'screen-'+target));
+    if(target==='aspectos') renderAspectos();
     if(target==='progreso') renderProgreso();
     if(target==='biblioteca') renderBiblioteca();
   });
@@ -182,7 +231,10 @@ function renderHoy(){
   const doneToday = !!state.history[todayKey()];
   list.innerHTML = EXERCISES.map((ex,i)=>`
     <div class="ex-row ${doneToday?'done':''}">
-      <div class="ex-num">${i+1}</div>
+      <div class="ex-icon-wrap">
+        <div class="ex-icon">${EXERCISE_ICONS[ex.type]}</div>
+        <div class="ex-badge">${i+1}</div>
+      </div>
       <div class="ex-info">
         <div class="ex-title">${ex.title}</div>
         <div class="ex-meta">${ex.meta}</div>
@@ -195,7 +247,44 @@ function renderHoy(){
   document.getElementById('completed-note').hidden = !doneToday;
 }
 
-/* ---------------- RENDER: PROGRESO ---------------- */
+/* ---------------- RENDER: ASPECTOS ---------------- */
+const ASPECT_DAY_NUMS = [1,2,3,4,5];
+
+function renderAspectos(){
+  const wrap = document.getElementById('aspect-list');
+  wrap.innerHTML = ASPECT_DAY_NUMS.map(num=>{
+    const d = DAYS[num];
+    return `
+      <div class="aspect-card" data-num="${num}">
+        <button class="aspect-head">
+          <span class="aspect-dot" style="background:${d.color}"></span>
+          <span class="aspect-name">${d.label}</span>
+          <span class="aspect-chevron">▾</span>
+        </button>
+        <div class="aspect-body">
+          <div class="aspect-quote" style="background:${d.color}; color:${d.textOn};">"${d.affirmation}"</div>
+          <div class="aspect-metas-label">Tus metas en este aspecto</div>
+          <ul class="aspect-metas">${d.metas.map(m=>`<li>${m}</li>`).join('')}</ul>
+          <button class="btn-aspect" style="background:${d.color}; color:${d.textOn};" data-practice="${num}">Practicar este aspecto</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  wrap.querySelectorAll('.aspect-head').forEach(head=>{
+    head.addEventListener('click', ()=>{
+      head.closest('.aspect-card').classList.toggle('open');
+    });
+  });
+  wrap.querySelectorAll('[data-practice]').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      startFlow(DAYS[parseInt(btn.dataset.practice)]);
+    });
+  });
+}
+
+
 function renderProgreso(){
   const dates = Object.keys(state.history);
   document.getElementById('stat-streak').textContent = computeStreak();
@@ -258,6 +347,19 @@ function renderBiblioteca(){
       <div class="lib-body">${t.body}</div>
     </div>
   `).join('');
+
+  const videoWrap = document.getElementById('lib-videos');
+  videoWrap.innerHTML = VIDEOS.map(v=>`
+    <div class="video-card">
+      <div class="video-card-title">${v.title}</div>
+      <div class="video-frame">
+        <iframe src="https://www.youtube-nocookie.com/embed/${v.id}" title="${v.title}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-card-sub">${v.sub}</div>
+    </div>
+  `).join('');
 }
 
 /* ---------------- AJUSTES ---------------- */
@@ -278,26 +380,95 @@ document.getElementById('btn-reset').addEventListener('click', ()=>{
 
 /* ---------------- VOZ ---------------- */
 let esVoice = null;
+const FEMALE_VOICE_HINTS = ['mónica','monica','paulina','marisol','angélica','angelica','camila','lucia','lucía','isabela','female','mujer','samantha','helena','sofía','sofia'];
+const MALE_VOICE_HINTS = ['jorge','diego','juan','carlos','miguel','male','hombre'];
+
+/* Algunos navegadores y iframes restringidos bloquean speechSynthesis y lanzan
+   una excepción al solo tocarlo. Todo acceso pasa por aquí para que un bloqueo
+   nunca interrumpa el renderizado de la app. */
+function synth(){
+  try{
+    return ('speechSynthesis' in window) ? window.speechSynthesis : null;
+  }catch(e){ return null; }
+}
+
 function pickVoice(){
-  const voices = speechSynthesis.getVoices();
-  esVoice = voices.find(v=>v.lang && v.lang.startsWith('es')) || null;
+  const s = synth();
+  if(!s) { esVoice = null; return; }
+  let voices = [];
+  try{ voices = s.getVoices().filter(v=>v.lang && v.lang.startsWith('es')); }catch(e){ esVoice = null; return; }
+  if(voices.length === 0){ esVoice = null; return; }
+  const byHint = (hints)=> voices.find(v=> hints.some(h=> v.name.toLowerCase().includes(h)));
+  esVoice = byHint(FEMALE_VOICE_HINTS)
+    || voices.find(v=> !MALE_VOICE_HINTS.some(h=> v.name.toLowerCase().includes(h)))
+    || voices[0];
 }
-if('speechSynthesis' in window){
-  speechSynthesis.onvoiceschanged = pickVoice;
-  pickVoice();
-}
+try{
+  const s0 = synth();
+  if(s0){ s0.onvoiceschanged = pickVoice; pickVoice(); }
+}catch(e){ /* voz no disponible: la app sigue funcionando sin ella */ }
+
 function speak(text, onEnd){
-  if(!state.voiceOn || !('speechSynthesis' in window)){ if(onEnd) onEnd(); return null; }
-  speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'es-ES';
-  if(esVoice) u.voice = esVoice;
-  u.rate = state.rate || 0.85;
-  if(onEnd) u.onend = onEnd;
-  speechSynthesis.speak(u);
-  return u;
+  const s = synth();
+  if(!state.voiceOn || !s){ if(onEnd) onEnd(); return null; }
+  try{
+    s.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'es-ES';
+    if(esVoice) u.voice = esVoice;
+    u.rate = state.rate || 0.85;
+    if(onEnd) u.onend = onEnd;
+    s.speak(u);
+    return u;
+  }catch(e){
+    if(onEnd) onEnd();
+    return null;
+  }
 }
-function stopSpeaking(){ if('speechSynthesis' in window) speechSynthesis.cancel(); }
+function stopSpeaking(){
+  const s = synth();
+  if(!s) return;
+  try{ s.cancel(); }catch(e){}
+}
+
+let activeAudio = null;
+function stopAllVoice(){
+  if(activeAudio){ try{ activeAudio.pause(); activeAudio.currentTime = 0; }catch(e){} activeAudio = null; }
+  stopSpeaking();
+}
+/**
+ * Reproduce una grabación real en assets/audio/{kind}-{slug}.mp3 si existe.
+ * Si el archivo no existe o falla, cae automáticamente en la voz sintética del navegador.
+ * kind: 'viz' | 'affirm'
+ */
+function playVoice(day, kind, text, { onProgress, onEnd, onFallback } = {}){
+  stopAllVoice();
+  let fellBack = false;
+  const doFallback = ()=>{
+    if(fellBack) return;
+    fellBack = true;
+    activeAudio = null;
+    if(onFallback) onFallback();
+    speak(text, onEnd);
+  };
+  let audio;
+  try{
+    audio = new Audio(`assets/audio/${kind}-${day.slug}.mp3`);
+  }catch(e){ doFallback(); return; }
+  activeAudio = audio;
+  audio.addEventListener('error', doFallback);
+  audio.addEventListener('timeupdate', ()=>{
+    if(audio.duration && onProgress) onProgress(Math.min(100, (audio.currentTime/audio.duration)*100));
+  });
+  audio.addEventListener('ended', ()=>{
+    if(activeAudio === audio) activeAudio = null;
+    if(onEnd) onEnd();
+  });
+  try{
+    const p = audio.play();
+    if(p && p.catch) p.catch(doFallback);
+  }catch(e){ doFallback(); }
+}
 
 /* ---------------- OVERLAY / FLUJO DE EJERCICIOS ---------------- */
 const overlay = document.getElementById('overlay');
@@ -307,39 +478,59 @@ const overlayProgress = document.getElementById('overlay-progress');
 const overlayNext = document.getElementById('overlay-next');
 let stepIndex = 0;
 let breathTimer = null;
+let flowDay = null;
 
-document.getElementById('btn-empezar').addEventListener('click', startFlow);
+document.getElementById('btn-empezar').addEventListener('click', ()=> startFlow());
 document.getElementById('overlay-close').addEventListener('click', closeFlow);
 
-function startFlow(){
-  session = { vibration:null, gratitude:['','',''] };
+function startFlow(forcedDay){
+  session = { vibration:null, gratitude:['','',''], vizMode:'guion' };
   stepIndex = 0;
+  flowDay = forcedDay || todayDay();
   overlay.hidden = false;
-  const day = todayDay();
-  overlayInner.style.setProperty('--ov-bg', day.color);
-  overlayInner.style.setProperty('--ov-ink', day.textOn);
   renderStep();
 }
 function closeFlow(){
   clearInterval(breathTimer);
-  stopSpeaking();
+  stopAllVoice();
   overlay.hidden = true;
 }
 
 function renderStep(){
-  clearInterval(breathTimer);
-  stopSpeaking();
-  const day = todayDay();
+  try{ clearInterval(breathTimer); }catch(e){}
+  try{ stopAllVoice(); }catch(e){}
+  const day = flowDay;
   const ex = EXERCISES[stepIndex];
 
-  overlayProgress.innerHTML = EXERCISES.map((_,i)=>`<span class="${i<=stepIndex?'on':''}"></span>`).join('');
-  overlayNext.textContent = stepIndex === EXERCISES.length-1 ? 'Terminar' : 'Siguiente';
+  try{
+    overlayInner.style.setProperty('--stage-bg', day.color);
+    overlayInner.style.setProperty('--stage-ink', day.textOn);
+    // En días de color claro (Salud, Creencias, Relaciones) los controles blancos
+    // desaparecen, así que usan la tinta oscura de la paleta.
+    overlayInner.style.setProperty('--stage-chip', day.textOn === '#fff' ? '#fff' : '#2B1420');
+    overlayInner.style.setProperty('--stage-chip-ink', day.textOn === '#fff' ? day.color : '#fff');
+    overlayProgress.innerHTML = EXERCISES.map((_,i)=>`<span class="${i<=stepIndex?'on':''}"></span>`).join('');
+    overlayNext.textContent = stepIndex === EXERCISES.length-1 ? 'Terminar' : 'Siguiente';
+  }catch(e){ console.error(e); }
 
-  if(ex.type === 'breath') renderBreath(day);
-  else if(ex.type === 'scale') renderScale(day);
-  else if(ex.type === 'visualize') renderVisualize(day);
-  else if(ex.type === 'affirm') renderAffirm(day);
-  else if(ex.type === 'gratitude') renderGratitude(day);
+  if(ex.type === 'breath') safeRender(renderBreath, day);
+  else if(ex.type === 'scale') safeRender(renderScale, day);
+  else if(ex.type === 'visualize') safeRender(renderVisualize, day);
+  else if(ex.type === 'affirm') safeRender(renderAffirm, day);
+  else if(ex.type === 'gratitude') safeRender(renderGratitude, day);
+}
+
+function safeRender(fn, day){
+  try{
+    fn(day);
+  }catch(err){
+    console.error('Error al mostrar el ejercicio:', err);
+    overlayContent.innerHTML = `
+      <div class="ov-eyebrow">Ups</div>
+      <div class="ov-title">Este paso no cargó bien</div>
+      <div class="ov-body">Cierra con la ✕ y vuelve a intentar. Si se repite, dime en qué paso pasa.</div>
+    `;
+  }
 }
 
 function renderBreath(day){
@@ -372,66 +563,103 @@ function renderBreath(day){
 }
 
 function renderScale(day){
+  const last = SCALE_LEVELS.length - 1;
   overlayContent.innerHTML = `
     <div class="ov-eyebrow">Paso 2 de 5</div>
     <div class="ov-title">¿Dónde estás hoy?</div>
-    <div class="scale-list" id="scale-list">
-      ${SCALE_LEVELS.map((lvl,i)=>`<button class="scale-item" data-i="${i}">${lvl}</button>`).join('')}
+    <div class="scale-wrap">
+      <div class="scale-track-wrap">
+        <div class="scale-track"></div>
+        <input type="range" class="scale-range" id="scale-range" min="0" max="${last}" step="1" value="${session.vibration ?? Math.round(last/2)}">
+      </div>
+      <div class="scale-info">
+        <div class="scale-current" id="scale-current">Desliza para ubicarte</div>
+        <div class="scale-suggest" id="scale-suggest">Arriba se siente más liviano. Abajo, más pesado. Solo sé honesta.</div>
+      </div>
     </div>
-    <div class="ov-hint" id="scale-hint">Elige la emoción más cercana a cómo te sientes ahora.</div>
   `;
-  document.querySelectorAll('.scale-item').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.scale-item').forEach(b=>b.classList.remove('selected'));
-      btn.classList.add('selected');
-      const i = parseInt(btn.dataset.i);
-      session.vibration = i;
-      const hint = document.getElementById('scale-hint');
-      if(i===0){
-        hint.textContent = 'Estás en la cima de la escala. Solo quédate ahí.';
-      } else {
-        hint.textContent = `No busques saltar hasta arriba. Solo busca sentir: "${SCALE_LEVELS[i-1]}".`;
-      }
-    });
-  });
+  const range = document.getElementById('scale-range');
+  const update = ()=>{
+    const i = parseInt(range.value);
+    session.vibration = i;
+    document.getElementById('scale-current').textContent = SCALE_LEVELS[i];
+    const hint = document.getElementById('scale-suggest');
+    hint.textContent = i===0
+      ? 'Estás en la cima de la escala. Solo quédate ahí.'
+      : `No busques saltar hasta arriba. Solo busca sentir: "${SCALE_LEVELS[i-1]}".`;
+  };
+  range.addEventListener('input', update);
+  if(session.vibration != null) update();
 }
 
 function renderVisualize(day){
   overlayContent.innerHTML = `
     <div class="ov-eyebrow">Paso 3 de 5</div>
     <div class="ov-title">Visualización desde el final</div>
+    <div class="seg" id="viz-seg">
+      <button data-mode="guion" class="${session.vizMode==='guion'?'on':''}">Tu guion</button>
+      <button data-mode="video" class="${session.vizMode==='video'?'on':''}">Meditación guiada</button>
+    </div>
+    <div id="viz-body"></div>
+  `;
+  document.querySelectorAll('#viz-seg button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      session.vizMode = btn.dataset.mode;
+      document.querySelectorAll('#viz-seg button').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      stopAllVoice();
+      renderVizBody(day);
+    });
+  });
+  renderVizBody(day);
+}
+
+function renderVizBody(day){
+  const body = document.getElementById('viz-body');
+  if(session.vizMode === 'video'){
+    body.innerHTML = `
+      <div class="video-frame" style="margin-top:2px;">
+        <iframe src="https://www.youtube-nocookie.com/embed/${GUIDED_MEDITATION_ID}"
+          title="Meditación guiada" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="ov-hint" style="margin-top:10px;">¿No carga? <a class="video-fallback" href="https://www.youtube.com/watch?v=${GUIDED_MEDITATION_ID}" target="_blank" rel="noopener">Ábrela en YouTube ↗</a></div>
+    `;
+    return;
+  }
+  body.innerHTML = `
     <div class="audio-row">
       <button class="audio-btn" id="play-btn">▶</button>
       <div class="audio-track"><div class="audio-fill" id="audio-fill"></div></div>
     </div>
-    <div class="ov-body" id="viz-text" style="max-height:32vh; overflow-y:auto;">${day.visualization.replace(/\n/g,'<br><br>')}</div>
+    <div class="ov-body" id="viz-text" style="max-height:28vh; overflow-y:auto; margin-top:14px;">${day.visualization.replace(/\n/g,'<br><br>')}</div>
   `;
   const btn = document.getElementById('play-btn');
   const fill = document.getElementById('audio-fill');
   let playing = false;
-  let progressTimer = null;
-  const estMs = day.visualization.split(/\s+/).length / (130*(state.rate||0.85)/60) * 1000;
+  let estTimer = null;
 
   btn.addEventListener('click', ()=>{
     if(playing){
-      stopSpeaking();
-      clearInterval(progressTimer);
+      stopAllVoice();
+      clearInterval(estTimer);
       btn.textContent = '▶';
       playing = false;
       return;
     }
     playing = true;
     btn.textContent = '⏸';
-    const start = Date.now();
-    progressTimer = setInterval(()=>{
-      const pct = Math.min(100, ((Date.now()-start)/estMs)*100);
-      fill.style.width = pct+'%';
-    }, 200);
-    speak(day.visualization, ()=>{
-      clearInterval(progressTimer);
-      fill.style.width = '100%';
-      btn.textContent = '▶';
-      playing = false;
+    const onFallback = ()=>{
+      const estMs = day.visualization.split(/\s+/).length / (130*(state.rate||0.85)/60) * 1000;
+      const start = Date.now();
+      estTimer = setInterval(()=>{
+        fill.style.width = Math.min(100, ((Date.now()-start)/estMs)*100) + '%';
+      }, 200);
+    };
+    playVoice(day, 'viz', day.visualization, {
+      onProgress: (pct)=>{ fill.style.width = pct+'%'; },
+      onEnd: ()=>{ clearInterval(estTimer); fill.style.width = '100%'; btn.textContent = '▶'; playing = false; },
+      onFallback,
     });
   });
 }
@@ -446,7 +674,13 @@ function renderAffirm(day){
     <button class="audio-btn" id="affirm-play" style="align-self:center;">▶</button>
     <div class="ov-hint">Repítela en voz alta, mínimo tres veces.</div>
   `;
-  document.getElementById('affirm-play').addEventListener('click', ()=> speak(day.affirmation));
+  document.getElementById('affirm-play').addEventListener('click', (e)=>{
+    const btn = e.currentTarget;
+    btn.textContent = '⏸';
+    playVoice(day, 'affirm', day.affirmation, {
+      onEnd: ()=>{ btn.textContent = '▶'; },
+    });
+  });
 }
 
 function renderGratitude(day){
@@ -474,14 +708,14 @@ overlayNext.addEventListener('click', ()=>{
 });
 
 function finishSession(){
-  const day = todayDay();
+  const day = flowDay || todayDay();
   state.history[todayKey()] = {
     area: day.area,
     vibration: session.vibration,
     gratitude: session.gratitude,
   };
   saveState();
-  stopSpeaking();
+  stopAllVoice();
   clearInterval(breathTimer);
   overlay.hidden = true;
   renderHoy();
